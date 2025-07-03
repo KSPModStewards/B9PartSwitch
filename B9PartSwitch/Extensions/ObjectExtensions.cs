@@ -21,7 +21,9 @@ namespace B9PartSwitch
 
         public static void EnsureArgumentType(this object o, Type type, string paramName)
         {
-            if (o.IsNotNull() && !o.GetType().Implements(type)) throw new ArgumentException($"Expected parameter of type {type} but got {o.GetType()}", paramName);
+            if (o.IsNotNull() && !o.GetType().Implements(type))
+                throw new ArgumentException("Expected parameter of type " + paramName + " but got {o.GetType()}");
+            //    throw new ArgumentException($"Expected parameter of type {type} but got {o.GetType()}", paramName);
         }
 
         public static void EnsureArgumentType<T>(this object o, string paramName) => o.EnsureArgumentType(typeof(T), paramName);
