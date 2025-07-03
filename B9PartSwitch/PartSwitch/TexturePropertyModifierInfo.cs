@@ -50,6 +50,9 @@ namespace B9PartSwitch
 
             foreach (Renderer renderer in renderers)
             {
+                if (renderer.sharedMaterial == null)
+                    continue;
+
                 Material sharedMaterial = renderer.sharedMaterial;
                 Texture texture = sharedMaterial.GetTexture(shaderProperty);
                 if (texture == null) continue;

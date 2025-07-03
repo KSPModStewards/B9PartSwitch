@@ -4,6 +4,7 @@ using UnityEngine;
 using B9PartSwitch.Fishbones;
 using B9PartSwitch.Fishbones.Context;
 using B9PartSwitch.PartSwitch.PartModifiers;
+using System.Linq;
 
 namespace B9PartSwitch
 {
@@ -22,7 +23,9 @@ namespace B9PartSwitch
         public IEnumerable<IPartModifier> CreateModifiers(IEnumerable<Renderer> renderers)
         {
             foreach (Renderer renderer in renderers)
-            {
+            { 
+                if (renderer.sharedMaterial == null)
+                    continue;
                 if (!renderer.sharedMaterial.HasProperty(shaderPropName)) continue;
 
                 yield return new ColorPropertyModifier(renderer, shaderPropName, newColor);

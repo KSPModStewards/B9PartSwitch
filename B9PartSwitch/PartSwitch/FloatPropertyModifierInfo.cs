@@ -23,6 +23,9 @@ namespace B9PartSwitch
         {
             foreach (Renderer renderer in renderers)
             {
+                if (renderer.sharedMaterial == null)
+                    continue;
+
                 if (!renderer.sharedMaterial.HasProperty(shaderPropName)) continue;
 
                 yield return new FloatPropertyModifier(renderer, shaderPropName, newValue);
