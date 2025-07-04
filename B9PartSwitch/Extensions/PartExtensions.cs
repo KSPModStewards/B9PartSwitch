@@ -40,14 +40,12 @@ namespace B9PartSwitch
         {
             if (amount > maxAmount)
             {
-                part.LogWarning("Cannot add resource '" + info.name + "' with amount > maxAmount, will use maxAmount (amount = " + amount + ", maxAmount = " + maxAmount+ ")");
-                // part.LogWarning($"Cannot add resource '{info.name}' with amount > maxAmount, will use maxAmount (amount = {amount}, maxAmount = {maxAmount})");
+                part.LogWarning($"Cannot add resource '{info.name}' with amount > maxAmount, will use maxAmount (amount = {amount}, maxAmount = {maxAmount})");
                 amount = maxAmount;
             }
             else if (amount < 0f)
             {
-                part.LogWarning("Cannot add resource '" + info.name + "' with amount < 0, will use 0 (amount = " + amount + ")");
-                //part.LogWarning($"Cannot add resource '{info.name}' with amount < 0, will use 0 (amount = {amount})");
+                part.LogWarning($"Cannot add resource '{info.name}' with amount < 0, will use 0 (amount = {amount})");
                 amount = 0f;
             }
 
@@ -147,12 +145,8 @@ namespace B9PartSwitch
             }
         }
 
-        public static void LogInfo(this Part part, object message) => Debug.Log("[Part " + part.name+ "] " +message);
-        public static void LogWarning(this Part part, object message) => Debug.LogWarning("[WARNING] [Part " + part.name + "] " + message);
-        public static void LogError(this Part part, object message) => Debug.LogError("[ERROR] [Part " + part.name + "] " + message);
-
-        // public static void LogInfo(this Part part, object message) => Debug.Log($"[Part {part.name}] {message}");
-        // public static void LogWarning(this Part part, object message) => Debug.LogWarning($"[WARNING] [Part {part.name}] {message}");
-        // public static void LogError(this Part part, object message) => Debug.LogError($"[ERROR] [Part {part.name}] {message}");
+        public static void LogInfo(this Part part, object message) => Debug.Log($"[Part {part.name}] {message}");
+        public static void LogWarning(this Part part, object message) => Debug.LogWarning($"[WARNING] [Part {part.name}] {message}");
+        public static void LogError(this Part part, object message) => Debug.LogError($"[ERROR] [Part {part.name}] {message}");
     }
 }

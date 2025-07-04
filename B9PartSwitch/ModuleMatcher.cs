@@ -64,12 +64,8 @@ namespace B9PartSwitch
 
         public ConfigNode FindPrefabNode(PartModule module)
         {
-            if (module.part.partInfo is not AvailablePart partInfo)
-                throw new InvalidOperationException("partInfo is null on part " + module.part.name);
-            //  throw new InvalidOperationException($"partInfo is null on part {module.part.name}");
-            if (partInfo.partConfig is not ConfigNode partConfig)
-                throw new InvalidOperationException("partInfo.partConfig is null on part " + partInfo.name);
-            //    throw new InvalidOperationException($"partInfo.partConfig is null on part {partInfo.name}");
+            if (module.part.partInfo is not AvailablePart partInfo) throw new InvalidOperationException($"partInfo is null on part {module.part.name}");
+            if (partInfo.partConfig is not ConfigNode partConfig) throw new InvalidOperationException($"partInfo.partConfig is null on part {partInfo.name}");
 
             ConfigNode matchedNode = null;
 

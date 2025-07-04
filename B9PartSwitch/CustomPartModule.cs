@@ -84,8 +84,7 @@ namespace B9PartSwitch
             }
             catch (Exception ex)
             {
-                Exception ex2 = new Exception("Fatal exception while loading fields on module " +  ex);
-                //Exception ex2 = new Exception($"Fatal exception while loading fields on module {this}", ex);
+                Exception ex2 = new Exception($"Fatal exception while loading fields on module {this}", ex);
                 FatalErrorHandler.HandleFatalError(ex2);
                 throw ex2;
             }
@@ -115,8 +114,7 @@ namespace B9PartSwitch
             }
             catch (Exception ex)
             {
-                Exception ex2 = new Exception("Fatal exception while saving fields on module " + ex);
-                // Exception ex2 = new Exception($"Fatal exception while saving fields on module {this}", ex);
+                Exception ex2 = new Exception($"Fatal exception while saving fields on module {this}", ex);
                 FatalErrorHandler.HandleFatalError(ex2);
                 throw ex2;
             }
