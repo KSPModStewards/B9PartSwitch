@@ -1,4 +1,4 @@
-### v2.21.0
+2.21.0
     Adoption by Linuxgurugamer
     Added InstallChecker and AssemblyVerison.tt
     Fix bug where a null entry in the renderers would throw an exception
