@@ -3,6 +3,9 @@
     Added InstallChecker and AssemblyVerison.tt
     Fix bug where a null entry in the renderers would throw an exception
 
+2.20.0.0
+    Placeholder
+
 ### v2.20.0
 
 * Recompile against KSP 1.12.3
