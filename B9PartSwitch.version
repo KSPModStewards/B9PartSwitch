@@ -1,9 +1,9 @@
 {
   "NAME": "B9 Part Switch",
-  "DOWNLOAD": "https://github.com/linuxgurugamer/B9PartSwitch/releases",
-  "URL": "https://s3.amazonaws.com/blowfish-ksp-b9partswitch-avc/latest/B9PartSwitch.version",
+  "DOWNLOAD": "https://github.com/KSPModStewards/B9PartSwitch/releases",
+  "URL": "https://raw.githubusercontent.com/KSPModStewards/B9PartSwitch/refs/heads/master/B9PartSwitch.version",
   "GITHUB": {
-    "USERNAME": "blowfishpro",
+    "USERNAME": "KSPModStewards",
     "REPOSITORY": "B9PartSwitch"
   },
   "VERSION": {
