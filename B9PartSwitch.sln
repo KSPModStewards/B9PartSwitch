@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36221.1 d17.14
+VisualStudioVersion = 17.14.36221.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B9PartSwitch", "B9PartSwitch\B9PartSwitch.csproj", "{87F28FEA-BCCD-4A27-94E3-7B39790E99F1}"
 EndProject
@@ -10,11 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
 		B9PartSwitch.version = B9PartSwitch.version
-		buildRelease.bat = buildRelease.bat
 		CHANGELOG.md = CHANGELOG.md
-		deploy.bat = deploy.bat
-		jenkins.txt = jenkins.txt
-		KSP_VERSION = KSP_VERSION
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
