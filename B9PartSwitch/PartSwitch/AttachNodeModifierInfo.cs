@@ -30,13 +30,13 @@ namespace B9PartSwitch
             this.SaveFields(node, context);
         }
 
-        public IEnumerable<IPartModifier> CreatePartModifiers(Part part, ILinearScaleProvider linearScaleProvider, Action<string> onError)
+        public IEnumerable<IPartModifier> CreatePartModifiers(Part part, ILinearScaleProvider linearScaleProvider, Action<string, bool> onError)
         {
             AttachNode node = part.attachNodes.FirstOrDefault(n => (n.nodeType == AttachNode.NodeType.Stack || n.nodeType == AttachNode.NodeType.Dock) && nodeID.Match(n.id));
 
             if (node == null)
             {
-                onError($"Attach node with id matching '{nodeID}' not found for attach node modifier");
+                onError($"Attach node with id matching '{nodeID}' not found for attach node modifier", false);
                 yield break;
             }
 

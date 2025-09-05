@@ -25,11 +25,11 @@ namespace B9PartSwitch
 
         public void Save(ConfigNode node, OperationContext context) => this.SaveFields(node, context);
 
-        public IEnumerable<IPartModifier> CreateModifiers(IEnumerable<Renderer> renderers, Action<string> onError)
+        public IEnumerable<IPartModifier> CreateModifiers(IEnumerable<Renderer> renderers, Action<string, bool> onError)
         {
             if (string.IsNullOrEmpty(newTexturePath))
             {
-                onError("texture name is empty");
+                onError("texture name is empty", false);
                 yield break;
             }
 
@@ -37,7 +37,7 @@ namespace B9PartSwitch
 
             if (newTexture == null)
             {
-                onError($"Texture '{newTexturePath}' not found!");
+                onError($"Texture '{newTexturePath}' not found!", false);
                 yield break;
             }
 

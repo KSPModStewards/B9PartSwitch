@@ -21,7 +21,7 @@ http://forum.kerbalspaceprogram.com/index.php?showtopic=140541
 
 ## Source
 
-The source can be found at [Github](https://github.com/blowfishpro/B9PartSwitch)
+The source can be found at [Github](https://github.com/KSPModStewards/B9PartSwitch)
 
 ## License
 
@@ -29,4 +29,4 @@ This plugin is distributed under [LGPL v3.0](http://www.gnu.org/licenses/lgpl-3.
 
 ## Changelog
 
-[On the wiki](https://github.com/blowfishpro/B9PartSwitch/wiki/Changelog)
+[On the wiki](https://github.com/KSPModStewards/B9PartSwitch/wiki/Changelog)

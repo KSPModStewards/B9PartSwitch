@@ -1,7 +1,25 @@
-### v2.21.0
+Changelog
+
+2.21.0.2
+    Added a whitelist to allow mods which depended on a bug which was fixed in 2.21 from having errors
+        Currently only Bluedog_DB is in the white list
+        
+2.21.0.1
+    Removed spaces from name in version file
+
+2.21.0
     Adoption by Linuxgurugamer
     Added InstallChecker and AssemblyVerison.tt
     Fix bug where a null entry in the renderers would throw an exception
+    Thanks to github user @Scialytic for this:
+        PR originally submitted to original repo:
+            QoL improvements for parts with a large number of subtypes
+    Thanks to github user @StonesmileGit for this:
+        PR originally submitted to original repo:
+            Handle ModuleFuelTanks nodes
+
+2.20.0.0
+    Placeholder
 
 ### v2.20.0
 

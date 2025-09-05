@@ -1,3 +1,12 @@
+Changelog
+
+2.21.0.2
+    Added a mod whitelist to allow mods which depended on a bug which was fixed in 2.21 from displaying errors.  The errors will still be logged to the log file
+        Currently only Bluedog_DB is in the white list
+        
+2.21.0.1
+    Removed spaces from name in version file
+
 2.21.0
     Adoption by Linuxgurugamer
     Added InstallChecker and AssemblyVerison.tt

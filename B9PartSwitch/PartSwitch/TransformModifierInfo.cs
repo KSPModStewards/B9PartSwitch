@@ -27,14 +27,14 @@ namespace B9PartSwitch
         public void Load(ConfigNode node, OperationContext context) => this.LoadFields(node, context);
         public void Save(ConfigNode node, OperationContext context) => this.SaveFields(node, context);
 
-        public IEnumerable<IPartModifier> CreatePartModifiers(Part part, Action<string> onError)
+        public IEnumerable<IPartModifier> CreatePartModifiers(Part part, Action<string, bool> onError)
         {
             part.ThrowIfNullArgument(nameof(part));
             onError.ThrowIfNullArgument(nameof(onError));
 
             if (transformName == null)
             {
-                onError("transform name is null");
+                onError("transform name is null", false);
                 yield break;
             }
 
@@ -58,7 +58,7 @@ namespace B9PartSwitch
                 }
             }
 
-            if (!foundTransform) onError($"Could not find any transform named '{transformName}'");
+            if (!foundTransform) onError($"Could not find any transform named '{transformName}'", false);
         }
     }
 }

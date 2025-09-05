@@ -1,11 +1,13 @@
-using System;
-using System.Collections.Generic;
-using UniLinq;
-using UnityEngine;
 using B9PartSwitch.Fishbones;
 using B9PartSwitch.Fishbones.Context;
 using B9PartSwitch.PartSwitch.PartModifiers;
 using B9PartSwitch.Utils;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using UniLinq;
+using UnityEngine;
 
 namespace B9PartSwitch
 {
@@ -228,7 +230,7 @@ namespace B9PartSwitch
 
         public void OnBeforeReinitializeInactiveSubtype()
         {
-            foreach(IPartModifier modifier in partModifiers)
+            foreach (IPartModifier modifier in partModifiers)
             {
                 modifier.OnBeforeReinitializeInactiveSubtype();
             }
@@ -257,6 +259,8 @@ namespace B9PartSwitch
                 modifier.OnAfterReinitializeActiveSubtype();
             }
         }
+        static UrlDir.UrlConfig[] configs = null;
+        static List<string> whitedListedMods = null;
 
         public void Setup(ModuleB9PartSwitch parent, bool displayWarnings = true)
         {
@@ -264,6 +268,9 @@ namespace B9PartSwitch
                 throw new ArgumentNullException("parent cannot be null");
             if (parent.part == null)
                 throw new ArgumentNullException("parent.part cannot be null");
+
+
+            InitializePartModWhitelist();
 
             this.parent = parent;
 
@@ -277,11 +284,11 @@ namespace B9PartSwitch
 
             string errorString = null;
 
-            void OnInitializationError(string message)
+            void OnInitializationError(string message, bool overrideDisplayWarnings = false)
             {
                 LogError(message);
 
-                if (displayWarnings)
+                if (displayWarnings && !overrideDisplayWarnings)
                 {
                     if (errorString == null) errorString = $"Initialization errors on {parent} subtype '{Name}'";
 
@@ -296,9 +303,10 @@ namespace B9PartSwitch
                 if (modifier is IPartAspectLock partAspectLockHolder)
                 {
                     object partAspectLock = partAspectLockHolder.PartAspectLock;
+
                     if (aspectLocksOnOtherModules.Contains(partAspectLock))
                     {
-                        OnInitializationError($"More than one module can't manage {modifier.Description}");
+                        OnInitializationError($"More than one module can't manage {modifier.Description}", whitedListedMods.Contains(FindPartMod(parent.part.partInfo)));
                         return;
                     }
                     else
@@ -309,6 +317,42 @@ namespace B9PartSwitch
 
                 partModifiers.Add(modifier);
             }
+            void InitializePartModWhitelist()
+            {
+                if (configs == null)
+                {
+                    configs = GameDatabase.Instance.GetConfigs("PART");
+                    whitedListedMods = new List<string>();
+
+                    Assembly execAssembly = Assembly.GetExecutingAssembly(); string _pluginDirectory = Path.GetDirectoryName(execAssembly.Location);
+
+                    string whitelistFilePath = Path.Combine(_pluginDirectory, "../PluginData/whiteList.cfg");
+                    ConfigNode whitelistFile = ConfigNode.Load(whitelistFilePath);
+                    try
+                    {
+                        ConfigNode blackListNode = whitelistFile.GetNode("B9_WHITELIST_MODS");
+                        foreach (string item in blackListNode.GetValues("mod"))
+                            whitedListedMods.Add(item);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.Log("[B9PartSwitch]: An exception occurred while loading the mod whitelist: " + e.Message);
+                    }
+                }
+            }
+            string FindPartMod(AvailablePart part)
+            {
+                UrlDir.UrlConfig config = Array.Find<UrlDir.UrlConfig>(configs, (c => (part.name == c.name.Replace('_', '.').Replace(' ', '.'))));
+                if (config == null)
+                {
+                    config = Array.Find<UrlDir.UrlConfig>(configs, (c => (part.name == c.name)));
+                    if (config == null)
+                        return "";
+                }
+                var id = new UrlDir.UrlIdentifier(config.url);
+                return id[0];
+            }
+
 
             if (maxTemp > 0)
                 MaybeAddModifier(new PartMaxTempModifier(part, partPrefab.maxTemp, maxTemp));
@@ -354,7 +398,7 @@ namespace B9PartSwitch
 
             foreach (AttachNodeModifierInfo info in attachNodeModifierInfos)
             {
-                foreach(IPartModifier partModifier in info.CreatePartModifiers(part, parent, OnInitializationError))
+                foreach (IPartModifier partModifier in info.CreatePartModifiers(part, parent, OnInitializationError))
                 {
                     MaybeAddModifier(partModifier);
                 }
@@ -362,7 +406,7 @@ namespace B9PartSwitch
 
             foreach (TextureSwitchInfo info in textureSwitches)
             {
-                foreach(TextureReplacement replacement in info.CreateTextureReplacements(part, OnInitializationError))
+                foreach (TextureReplacement replacement in info.CreateTextureReplacements(part, OnInitializationError))
                 {
                     MaybeAddModifier(replacement);
                 }
@@ -466,7 +510,7 @@ namespace B9PartSwitch
                 SeriousWarningHandler.DisplaySeriousWarning(errorString);
         }
 
-        #endregion
+#endregion
 
         #region Public Methods
 

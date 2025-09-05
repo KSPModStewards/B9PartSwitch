@@ -33,7 +33,7 @@ namespace B9PartSwitch
 
         public void Save(ConfigNode node, OperationContext context) => this.SaveFields(node, context);
 
-        public IEnumerable<IPartModifier> CreateModifiers(Transform rootTransform, Action<string> onError)
+        public IEnumerable<IPartModifier> CreateModifiers(Transform rootTransform, Action<string, bool> onError)
         {
             rootTransform.ThrowIfNullArgument(nameof(rootTransform));
 
@@ -75,7 +75,7 @@ namespace B9PartSwitch
             }
         }
 
-        private IEnumerable<Renderer> GetBaseTransformRenderers(Transform rootTransform, Action<string> onError)
+        private IEnumerable<Renderer> GetBaseTransformRenderers(Transform rootTransform, Action<string, bool> onError)
         {
             IEnumerable<Renderer> result = Enumerable.Empty<Renderer>();
             if (baseTransformNames == null) return result;
@@ -92,20 +92,20 @@ namespace B9PartSwitch
 
                     if (transformRenderers.Length == 0)
                     {
-                        onError($"No renderers found on transform '{baseTransformName}'");
+                        onError($"No renderers found on transform '{baseTransformName}'", false);
                         continue;
                     }
 
                     result = result.Concat(transformRenderers);
                 }
 
-                if (!foundTransform) onError($"No transforms matching '{baseTransformName}' found");
+                if (!foundTransform) onError($"No transforms matching '{baseTransformName}' found", false);
             }
 
             return result;
         }
 
-        private IEnumerable<Renderer> GetTransformRenderers(Transform rootTransform, Action<string> onError)
+        private IEnumerable<Renderer> GetTransformRenderers(Transform rootTransform, Action<string, bool> onError)
         {
             IEnumerable<Renderer> result = Enumerable.Empty<Renderer>();
             if (transformNames == null) return result;
@@ -121,14 +121,14 @@ namespace B9PartSwitch
 
                     if (transformRenderers.Length == 0)
                     {
-                        onError($"No renderers found on transform '{transformName}'");
+                        onError($"No renderers found on transform '{transformName}'", false);
                         continue;
                     }
 
                     result = result.Concat(transformRenderers);
                 }
 
-                if (!foundTransform) onError($"No transforms matching '{transformName}' found");
+                if (!foundTransform) onError($"No transforms matching '{transformName}' found", false);
             }
 
             return result;
