@@ -229,13 +229,32 @@ namespace B9PartSwitch
 
         public override string GetInfo()
         {
+	    // Rearrange building string used in VAB PartInfo popup, so that it is
+	    // only defined for tanks that switch resources. This is to drop side
+            // panels that just list multiple texture changes adding clutter with
+            // no functionally useful data about the part.
+
             InitializeSubtypes();
-            string outStr = $"<b><color=#7fdfffff>{SubtypesCount} {switcherDescriptionPlural}</color></b>";
+            string outStr = " "; // just to keep it from being undefined and throwing an error.
+
+            bool onetime = true;  // For subtype count and desciption
             foreach (var subtype in subtypes)
             {
-                outStr += $"\n<b>- {subtype.title}</b>";
+                bool first = true; // for subtype title
                 foreach (var resource in subtype.tankType)
-                    outStr += $"\n  <color=#99ff00ff>- {resource.resourceDefinition.displayName}</color>: {resource.unitsPerVolume * GetTotalVolume(subtype) :0.#}";
+                {
+                    if (onetime)
+                    {
+                        onetime = false;
+                        outStr = $"<b><color=#7fdfffff>{SubtypesCount} {switcherDescriptionPlural}</color></b>";
+                    }
+                    if (first)
+                    {
+                        first = false;
+                        outStr += $"\n<b>- {subtype.title}</b>";
+                    }
+                    outStr += $"\n  <color=#99ff00ff>- {resource.resourceDefinition.displayName}</color>: {resource.unitsPerVolume * GetTotalVolume(subtype):0.#}";
+                }
             }
             return outStr;
         }
