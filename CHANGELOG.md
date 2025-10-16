@@ -1,5 +1,10 @@
 Changelog
 
+2.21.0.3 
+    Added EisenhowerAstronautics to the mod whitelist
+    Thanks to github user TonkaCrash for this:
+        Modified GetInfo to suppress info about texture only changes
+
 2.21.0.2
     Added a mod whitelist to allow mods which depended on a bug which was fixed in 2.21 from displaying errors.  The errors will still be logged to the log file
         Currently only Bluedog_DB is in the white list
