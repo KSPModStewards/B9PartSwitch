@@ -1,5 +1,9 @@
 Changelog
 
+2.21.0.4 
+    Added Tantares to whitelist
+    Fixed EisenhowerAstronautics name in the whitelist
+
 2.21.0.3 
     Added EisenhowerAstronautics to the mod whitelist
     Thanks to github user TonkaCrash for this:
